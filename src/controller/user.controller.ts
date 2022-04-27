@@ -5,6 +5,7 @@ import UserService from "../service/user.service";
 const getAllUser = async (req: Request, res: Response) => {
   try {
     const allUser = await UserService.findAllUser();
+
     return res.status(200).json(allUser);
   } catch (error) {
     console.error(error);
@@ -25,7 +26,8 @@ const getUser = async (req: Request, res: Response) => {
 const createUser = async (req: Request, res: Response) => {
   try {
     const newUser = await UserService.createUser(req.body);
-    res.status(200).json(newUser);
+
+    return res.status(200).json(newUser);
   } catch (error) {
     console.error(error);
   }
@@ -35,12 +37,23 @@ const updateUser = async (req: Request, res: Response) => {
   try {
     const userId = req.params.userId;
     const data = req.body;
-
     const updateUser = await UserService.updateUser(data, userId);
-    res.status(200).json(updateUser);
+
+    return res.status(200).json(updateUser);
   } catch (error) {
     console.error(error);
   }
 };
 
-export { getAllUser, getUser, createUser, updateUser };
+const deleteUser = async (req: Request, res: Response) => {
+  try {
+    const userId = req.params.userId;
+    const deleteUser = await UserService.deleteUser(userId);
+
+    res.status(200).json(deleteUser);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export { getAllUser, getUser, createUser, updateUser, deleteUser };
