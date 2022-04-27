@@ -3,8 +3,8 @@ import dotenv from "dotenv";
 import cors from "cors";
 
 import db from "./config/db";
-import todoModel from "./model/todo.model";
 import todoRoute from "./routers/todo.router";
+import userRouter from "./routers/user.router";
 
 dotenv.config();
 
@@ -23,11 +23,11 @@ app.use(express.json());
 app.use(cors());
 
 // Route
-
 app.use("/health", (req, res, next) => {
   res.status(200).send("Server is running");
 });
 
 app.use("/todo", todoRoute);
+app.use("/user", userRouter);
 
 export default app;
