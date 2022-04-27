@@ -30,4 +30,13 @@ User.sync({ alter: true }).then(() => {
   console.log("Table User Created");
 });
 
+export type UserType = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  register: string | null;
+  username: string;
+  password: string;
+};
+
 export default User;
