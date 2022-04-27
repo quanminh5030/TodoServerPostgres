@@ -31,4 +31,16 @@ const createUser = async (req: Request, res: Response) => {
   }
 };
 
-export { getAllUser, getUser, createUser };
+const updateUser = async (req: Request, res: Response) => {
+  try {
+    const userId = req.params.userId;
+    const data = req.body;
+
+    const updateUser = await UserService.updateUser(data, userId);
+    res.status(200).json(updateUser);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export { getAllUser, getUser, createUser, updateUser };

@@ -6,11 +6,11 @@ const findAllUser = async () => {
 };
 
 const findUser = async (id: string) => {
-  const user = await UserModel.findOne({ where: { id: id } });
+  const foundUser = await UserModel.findOne({ where: { id: id } });
 
-  if (!user) throw Error("User does not exist.");
+  if (!foundUser) throw Error("User does not exist.");
 
-  return user;
+  return foundUser;
 };
 
 const createUser = async (data: UserType) => {
@@ -18,4 +18,12 @@ const createUser = async (data: UserType) => {
   return newUser;
 };
 
-export default { findAllUser, findUser, createUser };
+const updateUser = async (data: UserType, id: string) => {
+  const foundUser = await UserModel.findOne({ where: { id: id } });
+
+  if (!foundUser) throw Error("User does not exist.");
+
+  return await UserModel.update(data, { where: { id: id } });
+};
+
+export default { findAllUser, findUser, createUser, updateUser };
