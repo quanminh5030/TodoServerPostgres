@@ -18,15 +18,15 @@ const getTodo = async (req: Request, res: Response) => {
 
     res.json(todo);
   } catch (error) {
-    console.log('Q', error);
+    console.log(error);
   }
 };
 
 const createTodo = async (req: Request, res: Response) => {
   try {
-    const { description } = req.body;
+    const { description, userId } = req.body;
 
-    const newTodo = await TodoService.createTodo(description);
+    const newTodo = await TodoService.createTodo(description, userId);
     res.status(200).json(newTodo);
   } catch (error) {
     console.error(error);

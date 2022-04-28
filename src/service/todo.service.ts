@@ -13,8 +13,8 @@ const findTodo = async (todoId: number) => {
   return foundTodo;
 };
 
-const createTodo = async (descptionData: string) => {
-  const newTodo = await TodoModel.create({ description: descptionData });
+const createTodo = async (descptionData: string, userId: number) => {
+  const newTodo = await TodoModel.create({ description: descptionData, userId: userId });
   return newTodo;
 };
 

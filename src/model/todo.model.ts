@@ -12,10 +12,6 @@ const Todo = db.define("todo", {
   },
 });
 
-Todo.sync({ alter: true }).then(() => {
-  console.log("Table Todo Created");
-});
-
 export default Todo;
 
 export type TodoType = {
