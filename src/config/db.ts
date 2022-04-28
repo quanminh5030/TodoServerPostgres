@@ -19,4 +19,8 @@ const db = new Sequelize({
   },
 });
 
+db.sync({ alter: true }).then(() =>
+  console.log("all tables were synchronized successfully!")
+);
+
 export default db;

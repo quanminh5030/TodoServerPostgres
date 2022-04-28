@@ -1,5 +1,6 @@
 import { Sequelize, DataTypes } from "sequelize";
 import db from "../config/db";
+import Todo from "./todo.model";
 
 const User = db.define("user", {
   firstName: {
@@ -26,9 +27,13 @@ const User = db.define("user", {
   },
 });
 
-User.sync({ alter: true }).then(() => {
-  console.log("Table User Created");
+User.hasMany(Todo, {
+  foreignKey: "userId",
+  onDelete: "CASCADE",
+  onUpdate: "CASCADE",
 });
+
+Todo.belongsTo(User, { constraints: true, foreignKeyConstraint: true });
 
 export type UserType = {
   firstName: string;
