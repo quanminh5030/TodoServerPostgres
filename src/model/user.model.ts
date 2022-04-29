@@ -5,27 +5,27 @@ import Todo from "./todo.model";
 const User = db.define("user", {
   firstName: {
     type: DataTypes.STRING,
+    allowNull: false,
     validate: {
       isAlpha: true,
       notEmpty: true,
-      notNull: true,
     },
   },
   lastName: {
     type: DataTypes.STRING,
+    allowNull: false,
     validate: {
       isAlpha: true,
       notEmpty: true,
-      notNull: true,
     },
   },
   email: {
     type: DataTypes.STRING,
     unique: true,
+    allowNull: false,
     validate: {
       isEmail: true,
       notEmpty: true,
-      notNull: true,
     },
   },
   register: {
@@ -37,9 +37,11 @@ const User = db.define("user", {
   },
   password: {
     type: DataTypes.STRING,
+    allowNull: false,
     validate: {
       len: [6, 20],
       is: /^[a-z]+$/i,
+      notEmpty: true,
     },
   },
 });
