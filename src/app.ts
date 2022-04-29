@@ -5,6 +5,7 @@ import cors from "cors";
 import db from "./config/db";
 import todoRoute from "./routers/todo.router";
 import userRouter from "./routers/user.router";
+import apiErrorHandler from "./middleware/errorHandler";
 
 dotenv.config();
 
@@ -29,5 +30,8 @@ app.use("/health", (req, res, next) => {
 
 app.use("/todo", todoRoute);
 app.use("/user", userRouter);
+
+// Error handling
+app.use(apiErrorHandler);
 
 export default app;
