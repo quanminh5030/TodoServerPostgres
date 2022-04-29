@@ -36,4 +36,22 @@ const deleteUser = async (id: string) => {
   return user;
 };
 
-export default { findAllUser, findUser, createUser, updateUser, deleteUser };
+const findOrCreateUserByEmail = async (email: string) => {
+  const foundUser = await UserModel.findOrCreate({ where: { email: email } });
+  return foundUser;
+};
+
+const findByEmail = async (email: string) => {
+  const foundUser = await UserModel.findOne({ where: { email: email } });
+  return foundUser;
+};
+
+export default {
+  findAllUser,
+  findUser,
+  createUser,
+  updateUser,
+  deleteUser,
+  findOrCreateUserByEmail,
+  findByEmail,
+};

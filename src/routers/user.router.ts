@@ -1,4 +1,5 @@
 import express from "express";
+import passport from "passport";
 
 import {
   getAllUser,
@@ -6,9 +7,21 @@ import {
   createUser,
   updateUser,
   deleteUser,
+  googleLogin,
 } from "../controller/user.controller";
 
 const router = express.Router();
+
+router.post(
+  "/google-login",
+  passport.authenticate(
+    "google-id-token",
+    {
+      session: false,
+    },
+    googleLogin
+  )
+);
 
 router.get("/", getAllUser);
 router.get("/:userId", getUser);
