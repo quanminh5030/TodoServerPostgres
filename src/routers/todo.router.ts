@@ -1,4 +1,5 @@
 import express from "express";
+import passport from "passport";
 
 import {
   getAllTodo,
@@ -10,10 +11,24 @@ import {
 
 const router = express.Router();
 
-router.get("/", getAllTodo);
-router.get("/:todoId", getTodo);
-router.post("/", createTodo);
-router.put("/:todoId", updateTodo);
-router.delete("/:todoId", deleteTodo);
+router.get("/", passport.authenticate("jwt", { session: false }), getAllTodo);
+router.get(
+  "/:todoId",
+  passport.authenticate("jwt", { session: false }),
+  getTodo
+);
+
+router.post("/", passport.authenticate("jwt", { session: false }), createTodo);
+router.put(
+  "/:todoId",
+  passport.authenticate("jwt", { session: false }),
+  updateTodo
+);
+
+router.delete(
+  "/:todoId",
+  passport.authenticate("jwt", { session: false }),
+  deleteTodo
+);
 
 export default router;

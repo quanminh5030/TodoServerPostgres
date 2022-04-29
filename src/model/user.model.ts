@@ -1,4 +1,4 @@
-import { Sequelize, DataTypes } from "sequelize";
+import { DataTypes } from "sequelize";
 import db from "../config/db";
 import Todo from "./todo.model";
 
@@ -43,6 +43,10 @@ const User = db.define("user", {
       is: /^[a-z]+$/i,
       notEmpty: true,
     },
+  },
+  isAdmin: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false,
   },
 });
 

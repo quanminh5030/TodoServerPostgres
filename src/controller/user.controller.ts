@@ -1,7 +1,10 @@
 import { Request, Response, NextFunction } from "express";
+import jwt from 'jsonwebtoken';
 
 import UserService from "../service/user.service";
-import { BadRequestError } from "../middleware/errorHandler";
+import { BadRequestError } from "../middlewares/errorHandler";
+
+const JWT_SECRET = process.env.TWT_SECRET as string;
 
 const getAllUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -77,4 +80,14 @@ const deleteUser = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-export { getAllUser, getUser, createUser, updateUser, deleteUser };
+const googleLogin = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const user = req.user as any;
+    const token = jwt.sign({ email: user?.email }, JWT_SECRET)
+    res.json({ user, token })
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export { getAllUser, getUser, createUser, updateUser, deleteUser, googleLogin };
