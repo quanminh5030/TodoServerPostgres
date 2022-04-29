@@ -1,4 +1,5 @@
 import UserModel, { UserType } from "../model/user.model";
+import { NotFoundError } from "../middleware/errorHandler";
 
 const findAllUser = async () => {
   const allUser = await UserModel.findAll();
@@ -9,7 +10,7 @@ const findAllUser = async () => {
 const findUser = async (id: string) => {
   const foundUser = await UserModel.findOne({ where: { id: id } });
 
-  if (!foundUser) throw Error("User does not exist.");
+  if (!foundUser) throw new NotFoundError("User does not exist.");
 
   return foundUser;
 };
@@ -30,10 +31,8 @@ const updateUser = async (data: UserType, id: string) => {
 };
 
 const deleteUser = async (id: string) => {
-  const user = await findUser(id);
+  await findUser(id);
   await UserModel.destroy({ where: { id: id } });
-
-  return user;
 };
 
 const findOrCreateUserByEmail = async (email: string) => {

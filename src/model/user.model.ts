@@ -6,24 +6,43 @@ const User = db.define("user", {
   firstName: {
     type: DataTypes.STRING,
     allowNull: false,
+    validate: {
+      isAlpha: true,
+      notEmpty: true,
+    },
   },
   lastName: {
     type: DataTypes.STRING,
     allowNull: false,
+    validate: {
+      isAlpha: true,
+      notEmpty: true,
+    },
   },
   email: {
     type: DataTypes.STRING,
-    allowNull: false,
     unique: true,
+    allowNull: false,
+    validate: {
+      isEmail: true,
+      notEmpty: true,
+    },
   },
   register: {
     type: DataTypes.STRING,
-  },
-  username: {
-    type: DataTypes.STRING,
+    defaultValue: "app-system",
+    validate: {
+      isIn: [["app-system", "google", "facebook", "github"]],
+    },
   },
   password: {
     type: DataTypes.STRING,
+    allowNull: false,
+    validate: {
+      len: [6, 20],
+      is: /^[a-z]+$/i,
+      notEmpty: true,
+    },
   },
   isAdmin: {
     type: DataTypes.BOOLEAN,
@@ -43,9 +62,9 @@ export type UserType = {
   firstName: string;
   lastName: string;
   email: string;
-  register: string | null;
-  username: string | null;
-  password: string | null;
+  register: string;
+  username: string;
+  password: string;
 };
 
 export default User;
