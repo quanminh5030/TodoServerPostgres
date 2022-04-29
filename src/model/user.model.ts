@@ -5,25 +5,42 @@ import Todo from "./todo.model";
 const User = db.define("user", {
   firstName: {
     type: DataTypes.STRING,
-    allowNull: false,
+    validate: {
+      isAlpha: true,
+      notEmpty: true,
+      notNull: true,
+    },
   },
   lastName: {
     type: DataTypes.STRING,
-    allowNull: false,
+    validate: {
+      isAlpha: true,
+      notEmpty: true,
+      notNull: true,
+    },
   },
   email: {
     type: DataTypes.STRING,
-    allowNull: false,
+    unique: true,
+    validate: {
+      isEmail: true,
+      notEmpty: true,
+      notNull: true,
+    },
   },
   register: {
     type: DataTypes.STRING,
-    allowNull: false,
-  },
-  username: {
-    type: DataTypes.STRING,
+    defaultValue: "app-system",
+    validate: {
+      isIn: [["app-system", "google", "facebook", "github"]],
+    },
   },
   password: {
     type: DataTypes.STRING,
+    validate: {
+      len: [6, 20],
+      is: /^[a-z]+$/i,
+    },
   },
 });
 
@@ -39,7 +56,7 @@ export type UserType = {
   firstName: string;
   lastName: string;
   email: string;
-  register: string | null;
+  register: string;
   username: string;
   password: string;
 };
