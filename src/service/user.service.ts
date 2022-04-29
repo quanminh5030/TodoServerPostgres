@@ -30,10 +30,8 @@ const updateUser = async (data: UserType, id: string) => {
 };
 
 const deleteUser = async (id: string) => {
-  const user = await findUser(id);
+  await findUser(id);
   await UserModel.destroy({ where: { id: id } });
-
-  return user;
 };
 
 export default { findAllUser, findUser, createUser, updateUser, deleteUser };
