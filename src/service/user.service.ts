@@ -1,5 +1,5 @@
 import UserModel, { UserType } from "../model/user.model";
-import { NotFoundError } from "../middleware/errorHandler";
+import { NotFoundError } from "../middlewares/errorHandler";
 
 const findAllUser = async () => {
   const allUser = await UserModel.findAll();
@@ -35,8 +35,12 @@ const deleteUser = async (id: string) => {
   await UserModel.destroy({ where: { id: id } });
 };
 
-const findOrCreateUserByEmail = async (email: string) => {
-  const foundUser = await UserModel.findOrCreate({ where: { email: email } });
+const findOrCreateUser = async (data: UserType) => {
+  const foundUser = await findByEmail(data.email);
+  if (!foundUser) {
+    const newUser = await createUser(data);
+    return newUser;
+  }
   return foundUser;
 };
 
@@ -51,6 +55,6 @@ export default {
   createUser,
   updateUser,
   deleteUser,
-  findOrCreateUserByEmail,
+  findOrCreateUser,
   findByEmail,
 };

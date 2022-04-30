@@ -62,9 +62,8 @@ export type UserType = {
   firstName: string;
   lastName: string;
   email: string;
-  register: string;
-  username: string;
-  password: string;
+  register: string | null;
+  password: string | null;
 };
 
 export default User;
