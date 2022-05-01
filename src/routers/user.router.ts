@@ -16,12 +16,12 @@ const router = express.Router();
 router.post(
   "/google-login",
   passport.authenticate(
-    "google-id-token",
+    'google-id-token',
     {
       session: false,
     },
-    googleLogin
-  )
+  ),
+  googleLogin
 );
 
 router.get(

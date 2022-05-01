@@ -6,11 +6,8 @@ import passport from "passport";
 import db from "./config/db";
 import todoRoute from "./routers/todo.router";
 import userRouter from "./routers/user.router";
-<<<<<<< HEAD
 import { googleStrategy } from "./config/passport";
-=======
-import apiErrorHandler from "./middleware/errorHandler";
->>>>>>> be36f8902ebe6c198923396fca8b84dfe154abd2
+import apiErrorHandler from "./middlewares/errorHandler";
 
 dotenv.config();
 
@@ -40,10 +37,7 @@ app.use("/health", (req, res, next) => {
 app.use("/todo", todoRoute);
 app.use("/user", userRouter);
 
-<<<<<<< HEAD
-=======
 // Error handling
 app.use(apiErrorHandler);
->>>>>>> be36f8902ebe6c198923396fca8b84dfe154abd2
 
 export default app;
