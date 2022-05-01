@@ -1,3 +1,4 @@
+import { truncate } from "fs";
 import { DataTypes } from "sequelize";
 import db from "../config/db";
 import Todo from "./todo.model";
@@ -37,11 +38,10 @@ const User = db.define("user", {
   },
   password: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
     validate: {
       len: [6, 20],
       is: /^[a-z]+$/i,
-      notEmpty: true,
     },
   },
   isAdmin: {
@@ -63,7 +63,6 @@ export type UserType = {
   lastName: string;
   email: string;
   register: string | null;
-  password: string | null;
 };
 
 export default User;
